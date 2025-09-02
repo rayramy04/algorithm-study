@@ -1,5 +1,4 @@
 # algorithm-study
-
-I will study algorithm!
-
-Mainly, I will use Python.
+This repository contains my solutions for problems from AtCoder and LeetCode, 
+written in Python.  
+It serves as a record of my algorithm practice and showcases my coding ability.
