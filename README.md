@@ -1,3 +1,5 @@
 # algorithm-study
 
-I will study algorithm!!
+I will study algorithm!
+
+Mainly, I will use Python.
