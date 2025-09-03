@@ -18,9 +18,10 @@ fi
 echo -e "\n${GREEN}Current changes:${NC}"
 git status --short
 
-# Get all .py files from git status
+# Get all files from git status
 py_files=""
-file_count=0
+py_count=0
+other_count=0
 
 while IFS= read -r line; do
     # Get filename (handle renamed files)
@@ -41,18 +42,30 @@ while IFS= read -r line; do
         else
             py_files="$py_files, $problem"
         fi
-        ((file_count++))
+        ((py_count++))
+    else
+        ((other_count++))
     fi
 done < <(git status --porcelain)
 
 # Generate commit message
-if [ $file_count -eq 0 ]; then
-    echo -e "${YELLOW}No Python files to commit. Using generic message.${NC}"
-    commit_message="chore: update project files"
-elif [ $file_count -eq 1 ]; then
-    commit_message="feat: solve $py_files"
+if [ $py_count -gt 0 ] && [ $other_count -eq 0 ]; then
+    # Only Python files
+    if [ $py_count -eq 1 ]; then
+        commit_message="feat: solve $py_files"
+    else
+        commit_message="feat: solve $py_count problems ($py_files)"
+    fi
+elif [ $py_count -eq 0 ] && [ $other_count -gt 0 ]; then
+    # Only non-Python files (docs/config)
+    commit_message="docs: update project files"
 else
-    commit_message="feat: solve $file_count problems ($py_files)"
+    # Mixed files
+    if [ $py_count -eq 1 ]; then
+        commit_message="feat: solve $py_files and update docs"
+    else
+        commit_message="feat: solve $py_count problems and update docs"
+    fi
 fi
 
 echo -e "\n${GREEN}Commit message:${NC} $commit_message"

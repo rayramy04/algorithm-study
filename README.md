@@ -1,4 +1,9 @@
 # algorithm-study
-This repository contains my solutions for problems from AtCoder and LeetCode, 
-written in Python.  
-It serves as a record of my algorithm practice and showcases my coding ability.
+
+## Description
+Algorithm practice from AtCoder, AOJ, LeetCode.
+
+## Auto Commit
+```bash
+./auto_commit.sh
+```
